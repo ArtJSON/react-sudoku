@@ -5,7 +5,7 @@ class Field extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
+      value: props.value ? "" : props.value,
     };
     this.handleInput = this.handleInput.bind(this);
   }
