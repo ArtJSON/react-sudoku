@@ -5,8 +5,19 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fieldsValues: this.innitBoard(),
+      fieldsValues: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
     };
+    this.fillBoard = this.fillBoard.bind(this);
   }
 
   static defaultProps = {
@@ -16,20 +27,38 @@ class Board extends Component {
 
   // fill board with 9 arrays each containing 9 zeros
   innitBoard() {
-    let newBoard = [];
-    for (let i = 0; i < 9; i++) {
-      newBoard.push([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    }
-    return newBoard;
+    return [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
   }
 
   // fills board with random numbers by tring to solve it, removes random numbers to create a game
   fillBoard() {
-    let board = this.innitBoard();
+    let board = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
     this.solve(board);
 
     // after all operations set component state to created board
-    this.setState({ fieldsValues: board });
+    this.setState({
+      fieldsValues: board,
+    });
   }
 
   solve(board = []) {
@@ -108,6 +137,7 @@ class Board extends Component {
             );
           })}
         </table>
+        <button onClick={this.fillBoard}>Click</button>
       </div>
     );
   }

@@ -9,3 +9,7 @@
 .field-input:focus {
   outline-color: #43cde6;
 }
+
+.field {
+  display: inline-block;
+}

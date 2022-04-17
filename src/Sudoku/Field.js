@@ -5,7 +5,7 @@ class Field extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value ? "" : props.value,
+      value: 0,
     };
     this.handleInput = this.handleInput.bind(this);
   }
@@ -21,17 +21,13 @@ class Field extends Component {
 
   render() {
     return (
-      <div>
-        <form>
-          <input
-            onInput={this.handleInput}
-            className="field-input"
-            maxLength="1"
-            type="text"
-            value={this.state.value}
-          ></input>
-        </form>
-      </div>
+      <input
+        onInput={this.handleInput}
+        className="field-input"
+        maxLength="1"
+        type="text"
+        value={this.props.value}
+      ></input>
     );
   }
 }
