@@ -27,6 +27,8 @@ class Board extends Component {
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
       ],
+      good: false,
+      bad: false,
     };
     this.fillBoard = this.fillBoard.bind(this);
     this.onFieldUpdate = this.onFieldUpdate.bind(this);
@@ -86,6 +88,7 @@ class Board extends Component {
         return arr.slice();
       }),
     });
+    this.setState({ bad: false, good: false });
   }
 
   solve(board = []) {
@@ -159,6 +162,7 @@ class Board extends Component {
       prevState.playBoard[row][col] = val;
       return prevState;
     });
+    this.setState({ bad: false, good: false });
   }
 
   checkSudoku() {
@@ -172,19 +176,23 @@ class Board extends Component {
         copy[row][col] = 0;
         let isSafe = this.isNumberSafe(copy, temp, row, col);
         if (!isSafe) {
-          console.log("bad");
+          this.setState({ bad: true });
           return false;
         }
         copy[row][col] = temp;
       }
     }
-    console.log("good");
+    this.setState({ good: true });
     return true;
   }
 
   render() {
     return (
-      <div className="fields-container">
+      <div
+        className={`fields-container ${this.state.bad ? " bad" : ""} ${
+          this.state.good ? " good" : ""
+        }`}
+      >
         <table>
           {this.state.playBoard.map((row, rowNum) => {
             return (

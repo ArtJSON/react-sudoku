@@ -1,3 +1,31 @@
+@keyframes pulseBad {
+  0% {
+    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+  }
+
+  50% {
+    box-shadow: 0px 0px 40px 20px rgba(255, 0, 0, 0.6);
+  }
+
+  100% {
+    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes pulseGood {
+  0% {
+    box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+  }
+
+  50% {
+    box-shadow: 0px 0px 40px 20px rgba(0, 128, 0, 0.6);
+  }
+
+  100% {
+    box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+  }
+}
+
 .field-input {
   width: 3rem;
   height: 3rem;
@@ -17,4 +45,21 @@
 
 .field {
   display: inline-block;
+}
+
+.fields-container {
+  display: inline-block;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.bad {
+  box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+  animation: pulseBad 1s infinite;
+  animation-delay: 0.3s;
+}
+
+.good {
+  box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+  animation: pulseGood 1s infinite;
+  animation-delay: 0.3s;
 }
