@@ -1,4 +1,3 @@
-import "./_reset.css";
 import "./App.css";
 import SudokuGame from "./Sudoku/src/SudokuGame";
 
