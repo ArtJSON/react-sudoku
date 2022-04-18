@@ -35,6 +35,10 @@ class Board extends Component {
     this.checkSudoku = this.checkSudoku.bind(this);
   }
 
+  componentDidMount() {
+    this.fillBoard();
+  }
+
   static defaultProps = {
     height: 9,
     width: 9,
