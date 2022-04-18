@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Field from "./Field";
 import "../styles/board.css";
+import { solve, isNumberSafe } from "./SudokuBacktrackingSolver";
 
 class Board extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Board extends Component {
     this.fillBoard = this.fillBoard.bind(this);
     this.onFieldUpdate = this.onFieldUpdate.bind(this);
     this.checkSudoku = this.checkSudoku.bind(this);
+    this.solveBoard = this.solveBoard.bind(this);
   }
 
   static defaultProps = {
@@ -52,7 +54,7 @@ class Board extends Component {
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
     ];
-    this.solve(board);
+    solve(board);
 
     board = board.map((r) => {
       return r.map((n) => {
@@ -74,72 +76,6 @@ class Board extends Component {
     this.setState({ bad: false, good: false });
   }
 
-  solve(board = []) {
-    let solveSeed = Math.floor(Math.random() * 9);
-
-    // iterate over each row
-    for (let row = 0; row < 9; row++) {
-      // iterate over each number in that row
-      for (let col = 0; col < 9; col++) {
-        // if a number is equal to 0, try to solve it
-        if (board[row][col] === 0) {
-          // iterate over each possible value in that spot
-          for (let number = 1; number <= 9; number++) {
-            // start solving from random number to randomize the board
-            let tryNumber = ((number + solveSeed) % 9) + 1;
-            // if the number is safe try to solve the board recursively
-            if (this.isNumberSafe(board, tryNumber, row, col)) {
-              // if the board is solved recursively, return true. Else, the number is incorrect and try for another value
-              board[row][col] = tryNumber;
-              if (this.solve(board)) {
-                return true;
-              } else {
-                board[row][col] = 0;
-              }
-            }
-          }
-          // after iterating over all values the board wasn't solved, it is unsolvable
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  isNumberSafe(board, num, row, col) {
-    if (num === 0) {
-      return false;
-    }
-
-    // Check if this number is already in the row
-    for (let i = 0; i < 9; i++) {
-      if (board[row][i] == num) {
-        return false;
-      }
-    }
-
-    // Check if this number is already in the column
-    for (let i = 0; i < 9; i++) {
-      if (board[i][col] == num) {
-        return false;
-      }
-    }
-
-    // Check if this number is already in the 3x3 block
-    let startRow = row - (row % 3);
-    let startCol = col - (col % 3);
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (board[i + startRow][j + startCol] == num) {
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
   onFieldUpdate(row, col, val) {
     this.setState((prevState) => {
       prevState.playBoard[row][col] = val;
@@ -157,7 +93,7 @@ class Board extends Component {
       for (let col = 0; col < 9; col++) {
         let temp = copy[row][col];
         copy[row][col] = 0;
-        let isSafe = this.isNumberSafe(copy, temp, row, col);
+        let isSafe = isNumberSafe(copy, temp, row, col);
         if (!isSafe) {
           this.setState({ bad: true });
           return false;
@@ -167,6 +103,20 @@ class Board extends Component {
     }
     this.setState({ good: true });
     return true;
+  }
+
+  solveBoard() {
+    let unsolved = this.state.startingBoard.map(function (arr) {
+      return arr.slice();
+    });
+
+    solve(unsolved);
+
+    this.setState({
+      playBoard: unsolved.map(function (arr) {
+        return arr.slice();
+      }),
+    });
   }
 
   render() {
@@ -216,7 +166,9 @@ class Board extends Component {
           <button className="btn-options" onClick={this.checkSudoku}>
             Check your sudoku
           </button>
-          <button className="btn-options">Solve sudoku</button>
+          <button className="btn-options" onClick={this.solveBoard}>
+            Solve sudoku
+          </button>
         </div>
       </div>
     );
