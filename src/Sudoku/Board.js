@@ -188,36 +188,50 @@ class Board extends Component {
 
   render() {
     return (
-      <div
-        className={`fields-container ${this.state.bad ? " bad" : ""} ${
-          this.state.good ? " good" : ""
-        }`}
-      >
-        <table>
-          {this.state.playBoard.map((row, rowNum) => {
-            return (
-              <tr>
-                {row.map((f, colNum) => {
-                  return (
-                    <Field
-                      disabled={
-                        f !== 0 &&
-                        f === this.state.startingBoard[rowNum][colNum]
-                      }
-                      value={f}
-                      rowNum={rowNum}
-                      colNum={colNum}
-                      fieldHandler={this.onFieldUpdate}
-                    />
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </table>
-        <button onClick={this.fillBoard}>Generate new game</button>
-        <button onClick={this.checkSudoku}>Check your sudoku</button>
-        <button>Solve sudoku</button>
+      <div class="board-wrapper">
+        <div
+          className={`fields-container ${this.state.bad ? " bad" : ""} ${
+            this.state.good ? " good" : ""
+          }`}
+        >
+          <h1>Sudoku game</h1>
+          <h2 className="status">
+            {this.state.good ? "You win!" : ""}
+            {this.state.bad ? "Try again" : ""}&nbsp;
+          </h2>
+          <table>
+            {this.state.playBoard.map((row, rowNum) => {
+              return (
+                <tr>
+                  {row.map((f, colNum) => {
+                    return (
+                      <Field
+                        disabled={
+                          (f !== 0 &&
+                            f === this.state.startingBoard[rowNum][colNum]) ||
+                          this.state.good
+                        }
+                        value={f}
+                        rowNum={rowNum}
+                        colNum={colNum}
+                        fieldHandler={this.onFieldUpdate}
+                      />
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </table>
+          <div className="btn-container">
+            <button class="btn-options" onClick={this.fillBoard}>
+              Generate new game
+            </button>
+            <button class="btn-options" onClick={this.checkSudoku}>
+              Check your sudoku
+            </button>
+            <button class="btn-options">Solve sudoku</button>
+          </div>
+        </div>
       </div>
     );
   }
