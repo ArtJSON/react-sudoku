@@ -1,28 +1,28 @@
 @keyframes pulseBad {
   0% {
-    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 1);
   }
 
   50% {
-    box-shadow: 0px 0px 40px 20px rgba(255, 0, 0, 0.6);
+    box-shadow: 0px 0px 40px 20px rgba(255, 0, 0, 1);
   }
 
   100% {
-    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+    box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 1);
   }
 }
 
 @keyframes pulseGood {
   0% {
-    box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+    box-shadow: 0px 0px 30px 15px rgba(0, 220, 0, 1);
   }
 
   50% {
-    box-shadow: 0px 0px 40px 20px rgba(0, 128, 0, 0.6);
+    box-shadow: 0px 0px 40px 20px rgba(0, 220, 0, 1);
   }
 
   100% {
-    box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+    box-shadow: 0px 0px 30px 15px rgba(0, 220, 0, 1);
   }
 }
 
@@ -81,13 +81,13 @@ body {
 }
 
 .bad {
-  box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 0.6);
+  box-shadow: 0px 0px 30px 15px rgba(255, 0, 0, 1);
   animation: pulseBad 1s infinite;
   animation-delay: 0.3s;
 }
 
 .good {
-  box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 0.6);
+  box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 1);
   animation: pulseGood 1s infinite;
   animation-delay: 0.3s;
 }
