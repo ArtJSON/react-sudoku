@@ -128,7 +128,7 @@ class Board extends Component {
       >
         <h1>Sudoku game</h1>
         <h2 className="status">
-          {!this.state.won && !this.state.bad ? "won luck!" : ""}
+          {!this.state.won && !this.state.bad ? "Good luck!" : ""}
           {this.state.won ? "You win!" : ""}
           {this.state.bad ? "Try again" : ""}&nbsp;
         </h2>
