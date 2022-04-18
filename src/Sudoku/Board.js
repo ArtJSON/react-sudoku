@@ -30,12 +30,13 @@ class Board extends Component {
     };
     this.fillBoard = this.fillBoard.bind(this);
     this.onFieldUpdate = this.onFieldUpdate.bind(this);
+    this.checkSudoku = this.checkSudoku.bind(this);
   }
 
   static defaultProps = {
     height: 9,
     width: 9,
-    difficulty: 0.5,
+    difficulty: 0.01,
   };
 
   // fill board with 9 arrays each containing 9 zeros
@@ -121,16 +122,20 @@ class Board extends Component {
   }
 
   isNumberSafe(board, num, row, col) {
+    if (num === 0) {
+      return false;
+    }
+
     // Check if this number is already in the row
     for (let i = 0; i < 9; i++) {
-      if (board[row][i] === num) {
+      if (board[row][i] == num) {
         return false;
       }
     }
 
     // Check if this number is already in the column
     for (let i = 0; i < 9; i++) {
-      if (board[i][col] === num) {
+      if (board[i][col] == num) {
         return false;
       }
     }
@@ -140,7 +145,7 @@ class Board extends Component {
     let startCol = col - (col % 3);
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (board[i + startRow][j + startCol] === num) {
+        if (board[i + startRow][j + startCol] == num) {
           return false;
         }
       }
@@ -154,6 +159,27 @@ class Board extends Component {
       prevState.playBoard[row][col] = val;
       return prevState;
     });
+  }
+
+  checkSudoku() {
+    let copy = this.state.playBoard.map(function (arr) {
+      return arr.slice();
+    });
+
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        let temp = copy[row][col];
+        copy[row][col] = 0;
+        let isSafe = this.isNumberSafe(copy, temp, row, col);
+        if (!isSafe) {
+          console.log("bad");
+          return false;
+        }
+        copy[row][col] = temp;
+      }
+    }
+    console.log("good");
+    return true;
   }
 
   render() {
@@ -181,7 +207,9 @@ class Board extends Component {
             );
           })}
         </table>
-        <button onClick={this.fillBoard}>Click</button>
+        <button onClick={this.fillBoard}>Generate new game</button>
+        <button onClick={this.checkSudoku}>Check your sudoku</button>
+        <button>Solve sudoku</button>
       </div>
     );
   }
