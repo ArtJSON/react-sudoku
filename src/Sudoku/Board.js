@@ -200,6 +200,7 @@ class Board extends Component {
         >
           <h1>Sudoku game</h1>
           <h2 className="status">
+            {!this.state.good && !this.state.bad ? "Good luck!" : ""}
             {this.state.good ? "You win!" : ""}
             {this.state.bad ? "Try again" : ""}&nbsp;
           </h2>
