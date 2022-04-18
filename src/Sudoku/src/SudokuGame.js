@@ -13,7 +13,6 @@ class SudokuGame extends Component {
 
   handleInput(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
-    console.log(evt.target.name);
   }
 
   getDifficultyText(dif) {

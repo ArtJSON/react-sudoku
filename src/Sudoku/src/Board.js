@@ -183,36 +183,40 @@ class Board extends Component {
           {this.state.bad ? "Try again" : ""}&nbsp;
         </h2>
         <table>
-          {this.state.playBoard.map((row, rowNum) => {
-            return (
-              <tr>
-                {row.map((f, colNum) => {
-                  return (
-                    <Field
-                      disabled={
-                        (f !== 0 &&
-                          f === this.state.startingBoard[rowNum][colNum]) ||
-                        this.state.good
-                      }
-                      value={f}
-                      rowNum={rowNum}
-                      colNum={colNum}
-                      fieldHandler={this.onFieldUpdate}
-                    />
-                  );
-                })}
-              </tr>
-            );
-          })}
+          <tbody>
+            {this.state.playBoard.map((row, rowNum) => {
+              return (
+                <tr>
+                  {row.map((f, colNum) => {
+                    return (
+                      <td>
+                        <Field
+                          disabled={
+                            (f !== 0 &&
+                              f === this.state.startingBoard[rowNum][colNum]) ||
+                            this.state.good
+                          }
+                          value={f}
+                          rowNum={rowNum}
+                          colNum={colNum}
+                          fieldHandler={this.onFieldUpdate}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
         <div className="btn-container">
-          <button class="btn-options" onClick={this.fillBoard}>
+          <button className="btn-options" onClick={this.fillBoard}>
             Generate new game
           </button>
-          <button class="btn-options" onClick={this.checkSudoku}>
+          <button className="btn-options" onClick={this.checkSudoku}>
             Check your sudoku
           </button>
-          <button class="btn-options">Solve sudoku</button>
+          <button className="btn-options">Solve sudoku</button>
         </div>
       </div>
     );

@@ -35,7 +35,8 @@
   align-self: center;
 
   transition: box-shadow 0.3s ease-in-out;
-  min-width: 530px;
+  width: 530px;
+  margin-top: 2rem;
 
   text-align: center;
 
@@ -63,13 +64,8 @@
   background-color: #47cbe2;
 }
 
-table {
-  border-collapse: collapse;
-}
-
 td {
   padding: 0;
-  margin: 0;
 }
 
 .bad {
