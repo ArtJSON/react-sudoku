@@ -18,6 +18,7 @@ class Board extends Component {
       ],
     };
     this.fillBoard = this.fillBoard.bind(this);
+    this.onFieldUpdate = this.onFieldUpdate.bind(this);
   }
 
   static defaultProps = {
@@ -123,15 +124,29 @@ class Board extends Component {
     return true;
   }
 
+  onFieldUpdate(row, col, val) {
+    this.setState((prevState) => {
+      prevState.fieldsValues[row][col] = val;
+      return prevState;
+    });
+  }
+
   render() {
     return (
       <div className="fields-container">
         <table>
-          {this.state.fieldsValues.map((row) => {
+          {this.state.fieldsValues.map((row, rowNum) => {
             return (
               <tr>
-                {row.map((f) => {
-                  return <Field value={f} />;
+                {row.map((f, colNum) => {
+                  return (
+                    <Field
+                      value={f}
+                      rowNum={rowNum}
+                      colNum={colNum}
+                      fieldHandler={this.onFieldUpdate}
+                    />
+                  );
                 })}
               </tr>
             );
