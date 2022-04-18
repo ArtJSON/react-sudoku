@@ -25,6 +25,7 @@ class Field extends Component {
         maxLength="1"
         type="text"
         value={this.props.value}
+        disabled={this.props.disabled}
       ></input>
     );
   }

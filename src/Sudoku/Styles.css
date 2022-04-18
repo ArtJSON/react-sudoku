@@ -4,10 +4,15 @@
   font-size: 2rem;
   text-align: center;
   border: 2px solid #3aaec3;
+  color: #3aaec3;
 }
 
 .field-input:focus {
   outline-color: #43cde6;
+}
+
+.field-input:disabled {
+  color: black;
 }
 
 .field {

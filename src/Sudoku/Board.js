@@ -5,7 +5,18 @@ class Board extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fieldsValues: [
+      startingBoard: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+      playBoard: [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,6 +35,7 @@ class Board extends Component {
   static defaultProps = {
     height: 9,
     width: 9,
+    difficulty: 0.5,
   };
 
   // fill board with 9 arrays each containing 9 zeros
@@ -56,9 +68,22 @@ class Board extends Component {
     ];
     this.solve(board);
 
+    board = board.map((r) => {
+      return r.map((n) => {
+        if (Math.random() < this.props.difficulty) {
+          return 0;
+        } else {
+          return n;
+        }
+      });
+    });
+
     // after all operations set component state to created board
     this.setState({
-      fieldsValues: board,
+      startingBoard: board,
+      playBoard: board.map(function (arr) {
+        return arr.slice();
+      }),
     });
   }
 
@@ -126,7 +151,7 @@ class Board extends Component {
 
   onFieldUpdate(row, col, val) {
     this.setState((prevState) => {
-      prevState.fieldsValues[row][col] = val;
+      prevState.playBoard[row][col] = val;
       return prevState;
     });
   }
@@ -135,12 +160,16 @@ class Board extends Component {
     return (
       <div className="fields-container">
         <table>
-          {this.state.fieldsValues.map((row, rowNum) => {
+          {this.state.playBoard.map((row, rowNum) => {
             return (
               <tr>
                 {row.map((f, colNum) => {
                   return (
                     <Field
+                      disabled={
+                        f !== 0 &&
+                        f === this.state.startingBoard[rowNum][colNum]
+                      }
                       value={f}
                       rowNum={rowNum}
                       colNum={colNum}
