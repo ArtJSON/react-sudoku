@@ -1,11 +1,10 @@
 import "./App.css";
-import Field from "./Sudoku/Field";
-import Board from "./Sudoku/Board";
+import SudokuGame from "./Sudoku/src/SudokuGame";
 
 function App() {
   return (
     <div className="App">
-      <Board />
+      <SudokuGame />
     </div>
   );
 }

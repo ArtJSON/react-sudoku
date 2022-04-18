@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Styles.css";
+import "../styles/field.css";
 
 class Field extends Component {
   constructor(props) {
