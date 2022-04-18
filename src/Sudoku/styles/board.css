@@ -12,7 +12,7 @@
   }
 }
 
-@keyframes pulseGood {
+@keyframes pulseWon {
   0% {
     box-shadow: 0px 0px 30px 15px rgba(0, 220, 0, 1);
   }
@@ -74,8 +74,8 @@ td {
   animation-delay: 0.3s;
 }
 
-.good {
+.won {
   box-shadow: 0px 0px 30px 15px rgba(0, 128, 0, 1);
-  animation: pulseGood 1s infinite;
+  animation: pulseWon 1s infinite;
   animation-delay: 0.3s;
 }

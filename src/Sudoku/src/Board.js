@@ -9,7 +9,7 @@ class Board extends Component {
     this.state = {
       startingBoard: this.innitBoard(),
       playBoard: this.innitBoard(),
-      good: false,
+      won: false,
       bad: false,
     };
     this.fillBoard = this.fillBoard.bind(this);
@@ -73,7 +73,7 @@ class Board extends Component {
         return arr.slice();
       }),
     });
-    this.setState({ bad: false, good: false });
+    this.setState({ bad: false, won: false });
   }
 
   onFieldUpdate(row, col, val) {
@@ -81,7 +81,7 @@ class Board extends Component {
       prevState.playBoard[row][col] = val;
       return prevState;
     });
-    this.setState({ bad: false, good: false });
+    this.setState({ bad: false, won: false });
   }
 
   checkSudoku() {
@@ -101,7 +101,7 @@ class Board extends Component {
         copy[row][col] = temp;
       }
     }
-    this.setState({ good: true });
+    this.setState({ won: true });
     return true;
   }
 
@@ -123,13 +123,13 @@ class Board extends Component {
     return (
       <div
         className={`fields-container ${this.state.bad ? " bad" : ""} ${
-          this.state.good ? " good" : ""
+          this.state.won ? " won" : ""
         }`}
       >
         <h1>Sudoku game</h1>
         <h2 className="status">
-          {!this.state.good && !this.state.bad ? "Good luck!" : ""}
-          {this.state.good ? "You win!" : ""}
+          {!this.state.won && !this.state.bad ? "won luck!" : ""}
+          {this.state.won ? "You win!" : ""}
           {this.state.bad ? "Try again" : ""}&nbsp;
         </h2>
         <table>
@@ -144,7 +144,7 @@ class Board extends Component {
                           disabled={
                             (f !== 0 &&
                               f === this.state.startingBoard[rowNum][colNum]) ||
-                            this.state.good
+                            this.state.won
                           }
                           value={f}
                           rowNum={rowNum}
@@ -166,7 +166,11 @@ class Board extends Component {
           <button className="btn-options" onClick={this.checkSudoku}>
             Check your sudoku
           </button>
-          <button className="btn-options" onClick={this.solveBoard}>
+          <button
+            disabled={this.state.won}
+            className="btn-options"
+            onClick={this.solveBoard}
+          >
             Solve sudoku
           </button>
         </div>
